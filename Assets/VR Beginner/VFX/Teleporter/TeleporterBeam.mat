@@ -45,6 +45,8 @@ Material:
     m_Floats:
     - AlphaIntensity: 0
     - Vector1_F3D1487A: 2.5
+    - _QueueControl: 0
+    - _QueueOffset: 0
     m_Colors: []
   m_BuildTextureStacks: []
 --- !u!114 &1734849486089184452
