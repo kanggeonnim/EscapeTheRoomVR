@@ -22,10 +22,11 @@ public class DrawersMove : MonoBehaviour
     {
         _renderer = this.GetComponent<Renderer>();
         originalMaterial = _renderer.material;
-        selectMaterial.color = new Color(0f, 1f, 0f);
+        selectMaterial = new Material(originalMaterial);
+        selectMaterial.color = new Color(1f, 1f, 1f, 1f);
 
         closedPosition = this.transform.position;
-        opendPosition = this.transform.position - Vector3.forward * animDistance;
+        opendPosition = this.transform.position - Vector3.back* animDistance;
     }
 
     // Update is called once per frame
@@ -55,6 +56,7 @@ public class DrawersMove : MonoBehaviour
             if(!isAnimationPlaying)
             {
                 isAnimationPlaying = false;
+                StartCoroutine("PlayClosingAnimation");
             }     
         }
     }
@@ -64,11 +66,24 @@ public class DrawersMove : MonoBehaviour
         while (curTime / animPlayTime < 1.0f)
         {
             curTime += Time.deltaTime;
-            Vector3 currentPos = Vector3.Lerp(closedPosition, opendPosition, curTime / animPlayTime);
+            Vector3 currentPos = Vector3.Lerp(closedPosition,opendPosition ,curTime / animPlayTime);
             this.transform.position = currentPos;
             yield return null;
         }
         isAnimationPlaying = false;
         isClosed = false;
+    }
+    IEnumerator PlayClosingAnimation()
+    {
+        float curTime = 0f;
+        while (curTime / animPlayTime < 1.0f)
+        {
+            curTime += Time.deltaTime;
+            Vector3 currentPos = Vector3.Lerp(opendPosition, closedPosition, curTime / animPlayTime);
+            this.transform.position = currentPos;
+            yield return null;
+        }
+        isAnimationPlaying = false;
+        isClosed = true;
     }
 }

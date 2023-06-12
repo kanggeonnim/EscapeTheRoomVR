@@ -16,15 +16,9 @@ public class LocomotionController : MonoBehaviour
 
     private void Update() {
         float value = teleportReference.action.ReadValue<float>();
-        if(value > 0.1f && EnableTeleport)
+        if(value > 0.1f)
         {
-            Vector3 pos; Vector3 norm; int index; bool validTarget;
-            bool isInteractorRayHovering = rayInteractor.TryGetHitInfo(out pos, out norm, out index, out validTarget);
-            if(!isInteractorRayHovering)
-            {
-                teleportRay.SetActive(true);
-            }
-            
+            teleportRay.SetActive(true);
         }
         else
         {
